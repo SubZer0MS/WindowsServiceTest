@@ -14,8 +14,8 @@ namespace WindowsServiceTest
     public partial class WindowsServiceTest : ServiceBase
     {
         private int eventId = 1;
-        private string eventLogName = "WindowsServiceTestEventLog";
-        private string eventSourceName = "WindowsServiceTest";
+        private readonly string eventLogName = "WindowsServiceTestEventLog";
+        private readonly string eventSourceName = "WindowsServiceTest";
 
         public WindowsServiceTest(string[] args)
         {
@@ -49,7 +49,7 @@ namespace WindowsServiceTest
                 Interval = 10000 // 10 seconds
 
             };
-            timer.Elapsed += new ElapsedEventHandler(this.OnTimer);
+            timer.Elapsed += new ElapsedEventHandler(OnTimer);
             timer.Start();
         }
 

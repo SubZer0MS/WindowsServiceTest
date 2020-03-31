@@ -12,8 +12,8 @@ namespace WindowsServiceTest
 	[RunInstaller(true)]
 	public partial class ProjectInstaller : Installer
 	{
-		private string eventLogName = "WindowsServiceTestEventLog";
-		private string eventSourceName = "WindowsServiceTest";
+		private readonly string eventLogName = "WindowsServiceTestEventLog";
+		private readonly string eventSourceName = "WindowsServiceTest";
 
 		public string ServiceName { get; set; }
 		public string DisplayName { get; set; }
