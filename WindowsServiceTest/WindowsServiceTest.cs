@@ -14,7 +14,7 @@ namespace WindowsServiceTest
     public partial class WindowsServiceTest : ServiceBase
     {
         private readonly int eventId = 1;
-        private readonly int logInterval = 60000; // 10 seconds
+        private readonly int logInterval = 60000; // 60 seconds
         private readonly string eventLogName = "WindowsServiceTestEventLog";
         private readonly string eventSourceName = "WindowsServiceTest";
 
