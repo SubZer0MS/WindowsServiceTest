@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Install;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,14 +12,27 @@ namespace WindowsServiceTest
 	[RunInstaller(true)]
 	public partial class ProjectInstaller : Installer
 	{
+		private string eventLogName = "WindowsServiceTestEventLog";
+		private string eventSourceName = "WindowsServiceTest";
+
 		public string ServiceName { get; set; }
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
 
+		private EventLogInstaller myEventLogInstaller;
+
 		public ProjectInstaller()
         {
             InitializeComponent();
-        }
+
+			myEventLogInstaller = new EventLogInstaller
+			{
+				Source = eventSourceName,
+				Log = eventLogName
+			};
+
+			Installers.Add(myEventLogInstaller);
+		}
 
 		protected override void OnBeforeInstall(IDictionary savedState)
 		{

@@ -14,39 +14,30 @@ namespace WindowsServiceTest
     public partial class WindowsServiceTest : ServiceBase
     {
         private int eventId = 1;
-
-        private string eventSourceName = "WindowsServiceTest";
         private string eventLogName = "WindowsServiceTestEventLog";
+        private string eventSourceName = "WindowsServiceTest";
 
         public WindowsServiceTest(string[] args)
         {
             InitializeComponent();
 
-            if (args.Length > 0)
+            if(args.Length > 0)
             {
-                eventSourceName = args[0];
+                StringBuilder sb = new StringBuilder("WindowsServiceTest - Started with these parameters:");
+
+                foreach (string arg in args)
+                {
+                    sb.AppendLine(arg);
+                }
+
+                eventLog.WriteEntry(sb.ToString());
             }
 
-            if (args.Length > 1)
+            eventLog = new EventLog
             {
-                eventLogName = args[1];
-            }
-
-            eventLog = new EventLog();
-            if (!EventLog.SourceExists(eventSourceName))
-            {
-                EventLog.CreateEventSource(eventSourceName, eventLogName);
-            }
-            eventLog.Source = eventSourceName;
-            eventLog.Log = eventLogName;
-        }
-
-        ~WindowsServiceTest()
-        {
-            if (EventLog.Exists(eventLogName))
-            { 
-                EventLog.Delete(eventLogName);
-            }
+                Source = eventSourceName,
+                Log = eventLogName
+            };
         }
 
         protected override void OnStart(string[] args)
