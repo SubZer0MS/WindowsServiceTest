@@ -13,7 +13,8 @@ namespace WindowsServiceTest
 {
     public partial class WindowsServiceTest : ServiceBase
     {
-        private int eventId = 1;
+        private readonly int eventId = 1;
+        private readonly int logInterval = 60000; // 10 seconds
         private readonly string eventLogName = "WindowsServiceTestEventLog";
         private readonly string eventSourceName = "WindowsServiceTest";
 
@@ -46,9 +47,10 @@ namespace WindowsServiceTest
 
             Timer timer = new Timer
             {
-                Interval = 10000 // 10 seconds
+                Interval = logInterval
 
             };
+
             timer.Elapsed += new ElapsedEventHandler(OnTimer);
             timer.Start();
         }
@@ -65,7 +67,7 @@ namespace WindowsServiceTest
 
         public void OnTimer(object sender, ElapsedEventArgs args)
         {
-            eventLog.WriteEntry("WindowsServiceTest - Monitoring the System", EventLogEntryType.Information, eventId++);
+            eventLog.WriteEntry("WindowsServiceTest - Monitoring the System", EventLogEntryType.Information, eventId);
         }
     }
 }
