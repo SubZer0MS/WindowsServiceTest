@@ -19,7 +19,7 @@ namespace WindowsServiceTest
 		public string DisplayName { get; set; }
 		public string Description { get; set; }
 
-		private EventLogInstaller myEventLogInstaller;
+		private readonly EventLogInstaller myEventLogInstaller;
 
 		public ProjectInstaller()
         {
